@@ -3,32 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapters - SYNERGY | Victor Maican</title>
-
-    <!-- SEO Meta Tags -->
-    <meta name="description" content="Read the first chapters of SYNERGY, the new science fiction novel by Victor Maican.">
-    <meta name="keywords" content="synergy, victor maican, chapters, reading, science fiction, AI, artificial intelligence">
-    <meta name="author" content="Victor Maican">
-
-    <!-- Preconnect for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin">
-
+    <title>Free Chapters | Synergy - Víctor Maicán</title>
+    
+    <!-- SEO -->
+    <meta name="description" content="Read the first two complete chapters of Synergy, the science fiction novel by Víctor Maicán. Free and online.">
+    
     <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Exo+2:wght@200;300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary-color: #00d4ff;
-            --secondary-color: #7fb3d3;
-            --accent-color: #ff6b35;
-            --dark-blue: #0a1427;
-            --text-light: #e0e6ed;
-            --text-medium: #c0c8d0;
-            --text-reading: #f5f5f5;
-            --paper-bg: rgba(250, 248, 240, 0.95);
-            --paper-shadow: rgba(0, 0, 0, 0.3);
+            --neon-cyan: #00f5ff;
+            --neon-purple: #b829dd;
+            --neon-pink: #ff006e;
+            --dark-bg: #050508;
+            --paper-bg: #faf8f0;
         }
 
         * {
@@ -39,166 +31,233 @@
 
         body {
             font-family: 'Crimson Text', serif;
-            background: #0a0a0a;
-            color: var(--text-light);
+            background: var(--dark-bg);
+            color: #fff;
             line-height: 1.7;
-            overflow-x: hidden;
-            position: relative;
         }
 
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            background: linear-gradient(45deg, #0a1427 0%, #1a2a3a 25%, #0f1b2d 50%, #2a1a3a 75%, #0a1427 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-        }
-
-        .stars {
+        /* Animated Background */
+        .bg-animation {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             z-index: -1;
-            overflow: hidden;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(0, 245, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(184, 41, 221, 0.05) 0%, transparent 50%),
+                var(--dark-bg);
         }
 
-        .star {
-            position: absolute;
-            background: white;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
+        /* Progress Bar */
+        .progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 245, 255, 0.1);
+            z-index: 1001;
         }
 
-        .star:nth-child(odd) {
-            animation-delay: 1s;
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple));
+            width: 0%;
+            transition: width 0.1s ease;
+            box-shadow: 0 0 20px var(--neon-cyan);
         }
 
-        .star:nth-child(3n) {
-            animation-delay: 2s;
-        }
-
+        /* Navigation */
         .nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            padding: 15px 0;
-            background: rgba(10, 20, 39, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0, 212, 255, 0.2);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
-
-        .nav-content {
+            padding: 20px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
+            z-index: 1000;
+            background: rgba(5, 5, 8, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+        }
+
+        .nav-logo {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            text-shadow: 0 0 20px var(--neon-cyan);
+            letter-spacing: 3px;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 25px;
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 30px;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            transition: all 0.4s ease;
+        }
+
+        .nav-back:hover {
+            background: var(--neon-cyan);
+            color: var(--dark-bg);
+            box-shadow: 0 0 30px var(--neon-cyan);
+        }
+
+        /* Hero Reader */
+        .reader-hero {
+            padding: 150px 20px 80px;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .reader-badge {
+            display: inline-block;
+            padding: 10px 25px;
+            background: rgba(0, 245, 255, 0.1);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 30px;
+            color: var(--neon-cyan);
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+        }
+
+        .reader-title {
+            font-family: 'Orbitron', monospace;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+        }
+
+        .reader-title span {
+            color: var(--neon-cyan);
+        }
+
+        .reader-intro {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto 40px;
+        }
+
+        /* Chapter Navigation Tabs */
+        .chapter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+        }
+
+        .chapter-tab {
+            padding: 15px 40px;
+            background: rgba(0, 245, 255, 0.05);
+            border: 2px solid rgba(0, 245, 255, 0.2);
+            border-radius: 50px;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            transition: all 0.4s ease;
+            cursor: pointer;
+        }
+
+        .chapter-tab:hover,
+        .chapter-tab.active {
+            background: var(--neon-cyan);
+            border-color: var(--neon-cyan);
+            color: var(--dark-bg);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.4);
+        }
+
+        /* Book Page Style */
+        .book-container {
+            max-width: 800px;
             margin: 0 auto;
             padding: 0 20px;
         }
 
-        .logo {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: var(--primary-color);
-            text-decoration: none;
-            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
-        }
-
-        .back-btn {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--primary-color);
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 25px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .back-btn:hover {
-            background: var(--primary-color);
-            color: var(--dark-blue);
-            transform: translateX(-5px);
-        }
-
-        .reading-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 100px 20px 60px;
-            position: relative;
-        }
-
-        .book-page {
+        .chapter-page {
             background: var(--paper-bg);
-            color: #2c2c2c;
-            margin: 40px 0;
-            padding: 60px;
-            border-radius: 15px;
-            box-shadow:
-                0 20px 40px var(--paper-shadow),
-                inset 0 1px 0 rgba(255, 255, 255, 0.8);
+            border-radius: 20px;
+            padding: 60px 50px;
+            margin-bottom: 40px;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(0, 245, 255, 0.1);
             position: relative;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            animation: fadeInUp 0.8s ease-out;
+            color: #2c2c2c;
         }
 
-        .book-page::before {
+        .chapter-page::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"><circle cx="1" cy="1" r="0.5" fill="%23f0f0f0" opacity="0.3"/></svg>');
-            border-radius: 15px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Ccircle cx='1' cy='1' r='0.5' fill='%23000' opacity='0.03'/%3E%3C/svg%3E");
+            border-radius: 20px;
             pointer-events: none;
         }
 
         .chapter-header {
             text-align: center;
-            margin-bottom: 40px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid rgba(0, 212, 255, 0.3);
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid rgba(0, 0, 0, 0.1);
         }
 
-        .chapter-number {
+        .chapter-number-display {
             font-family: 'Orbitron', monospace;
             font-size: 0.9rem;
-            color: var(--primary-color);
-            text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
-            letter-spacing: 0.2em;
+            color: var(--neon-cyan);
+            letter-spacing: 4px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
+        }
+
+        .chapter-title-display {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            color: #1a1a2e;
             margin-bottom: 10px;
         }
 
-        .chapter-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            color: var(--dark-blue);
-            margin-bottom: 15px;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .chapter-epigraph {
+            font-style: italic;
+            color: #666;
+            font-size: 1rem;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0, 245, 255, 0.05);
+            border-left: 3px solid var(--neon-cyan);
+            border-radius: 0 10px 10px 0;
         }
 
+        /* Chapter Content */
         .chapter-content {
-            font-size: 1.1rem;
-            line-height: 1.8;
+            font-size: 1.15rem;
+            line-height: 1.9;
             text-align: justify;
-            color: #333;
-            position: relative;
-            z-index: 2;
         }
 
         .chapter-content p {
@@ -206,540 +265,626 @@
             text-indent: 2rem;
         }
 
-        .chapter-content p:first-child {
+        .chapter-content p:first-of-type {
             text-indent: 0;
         }
 
-        .chapter-content strong {
-            color: var(--dark-blue);
-            font-weight: 600;
+        .chapter-content p:first-of-type::first-letter {
+            font-size: 3.5rem;
+            float: left;
+            line-height: 0.8;
+            margin-right: 10px;
+            margin-top: 5px;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
         }
 
-        .chapter-content em {
-            color: #555;
-            font-style: italic;
-        }
-
+        /* Dialogue Styling */
         .dialogue {
-            margin: 1.5rem 0;
-            padding-left: 2rem;
-            border-left: 3px solid var(--primary-color);
+            margin: 2rem 0;
+            padding: 20px 30px;
+            background: rgba(0, 245, 255, 0.05);
+            border-left: 4px solid var(--neon-cyan);
             font-style: italic;
-            color: #2c4a6b;
+            color: #1a3a4a;
         }
 
         .dialogue p {
             text-indent: 0 !important;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.8rem !important;
+        }
+
+        .dialogue p:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        /* Flashback / Special Sections */
+        .flashback, .future-fragment {
+            margin: 40px 0;
+            padding: 40px;
+            border-radius: 15px;
+            position: relative;
         }
 
         .flashback {
-            background: rgba(0, 212, 255, 0.05);
-            border: 1px solid rgba(0, 212, 255, 0.2);
-            border-radius: 10px;
-            padding: 30px;
-            margin: 30px 0;
-            position: relative;
+            background: linear-gradient(135deg, rgba(0, 245, 255, 0.08), rgba(0, 245, 255, 0.02));
+            border: 1px solid rgba(0, 245, 255, 0.2);
+        }
+
+        .future-fragment {
+            background: linear-gradient(135deg, rgba(255, 0, 110, 0.08), rgba(255, 0, 110, 0.02));
+            border: 1px solid rgba(255, 0, 110, 0.2);
+        }
+
+        .flashback::before,
+        .future-fragment::before {
+            position: absolute;
+            top: -12px;
+            left: 30px;
+            padding: 5px 20px;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            border-radius: 20px;
+            font-style: normal;
         }
 
         .flashback::before {
             content: 'FLASHBACK';
-            position: absolute;
-            top: -10px;
-            left: 20px;
             background: var(--paper-bg);
-            padding: 5px 15px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            color: var(--primary-color);
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            border-radius: 15px;
-        }
-
-        .future-fragment {
-            background: rgba(255, 107, 53, 0.05);
-            border: 1px solid rgba(255, 107, 53, 0.2);
-            border-radius: 10px;
-            padding: 30px;
-            margin: 30px 0;
-            position: relative;
+            color: var(--neon-cyan);
+            border: 1px solid rgba(0, 245, 255, 0.3);
         }
 
         .future-fragment::before {
-            content: 'FUTURE FRAGMENT';
-            position: absolute;
-            top: -10px;
-            left: 20px;
+            content: 'FRAGMENT FROM THE FUTURE';
             background: var(--paper-bg);
-            padding: 5px 15px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            border: 1px solid rgba(255, 107, 53, 0.3);
-            border-radius: 15px;
+            color: var(--neon-pink);
+            border: 1px solid rgba(255, 0, 110, 0.3);
         }
 
-        .chapter-nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 40px 0;
-            padding: 20px 0;
-        }
-
-        .nav-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(0, 212, 255, 0.1);
-            color: var(--primary-color);
-            padding: 15px 25px;
-            text-decoration: none;
-            border-radius: 30px;
-            border: 1px solid rgba(0, 212, 255, 0.3);
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .nav-btn:hover {
-            background: var(--primary-color);
-            color: var(--dark-blue);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.3);
-        }
-
-        .chapter-indicator {
-            font-family: 'Orbitron', monospace;
-            color: var(--secondary-color);
-            font-size: 0.9rem;
+        /* Separator */
+        .section-separator {
             text-align: center;
+            margin: 50px 0;
+            position: relative;
         }
 
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 0%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
-            z-index: 1001;
-            transition: width 0.3s ease;
+        .section-separator::before {
+            content: '◆ ◆ ◆';
+            font-family: 'Orbitron', monospace;
+            color: rgba(0, 245, 255, 0.4);
+            letter-spacing: 15px;
+            font-size: 0.8rem;
         }
 
+        /* CTA Section */
+        .cta-section {
+            padding: 80px 20px;
+            text-align: center;
+            background: linear-gradient(180deg, transparent, rgba(0, 245, 255, 0.05), transparent);
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+        }
+
+        .cta-text {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-bottom: 40px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-glow {
+            padding: 18px 40px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-decoration: none;
+            text-transform: uppercase;
+            border-radius: 50px;
+            transition: all 0.4s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-glow-primary {
+            background: var(--neon-cyan);
+            color: var(--dark-bg);
+            box-shadow: 0 10px 40px rgba(0, 245, 255, 0.4);
+        }
+
+        .btn-glow-primary:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 60px rgba(0, 245, 255, 0.6);
+        }
+
+        .btn-glow-secondary {
+            background: transparent;
+            color: var(--neon-cyan);
+            border: 2px solid var(--neon-cyan);
+        }
+
+        .btn-glow-secondary:hover {
+            background: rgba(0, 245, 255, 0.1);
+            box-shadow: 0 0 40px rgba(0, 245, 255, 0.3);
+        }
+
+        /* Footer Simple */
+        .reader-footer {
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 1px solid rgba(0, 245, 255, 0.1);
+        }
+
+        .reader-footer p {
+            color: rgba(255, 255, 255, 0.5);
+            margin-bottom: 20px;
+        }
+
+        .reader-footer a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+        }
+
+        .social-links-footer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .social-links-footer a {
+            width: 50px;
+            height: 50px;
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--neon-cyan);
+            font-size: 1.3rem;
+            transition: all 0.4s ease;
+        }
+
+        .social-links-footer a:hover {
+            background: var(--neon-cyan);
+            color: var(--dark-bg);
+            box-shadow: 0 0 30px var(--neon-cyan);
+            transform: translateY(-5px);
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .book-page {
-                padding: 30px 25px;
-                margin: 20px 0;
+            .nav {
+                padding: 15px 20px;
             }
 
-            .chapter-title {
-                font-size: 1.5rem;
+            .nav-back span {
+                display: none;
+            }
+
+            .reader-hero {
+                padding: 120px 15px 60px;
+            }
+
+            .chapter-page {
+                padding: 40px 25px;
             }
 
             .chapter-content {
-                font-size: 1rem;
-                line-height: 1.7;
+                font-size: 1.05rem;
             }
 
-            .chapter-content p {
-                text-indent: 1rem;
+            .chapter-content p:first-of-type::first-letter {
+                font-size: 2.5rem;
             }
 
-            .nav-content {
-                padding: 0 15px;
+            .dialogue {
+                padding: 15px 20px;
             }
 
-            .back-btn {
-                padding: 8px 15px;
-                font-size: 0.8rem;
+            .flashback, .future-fragment {
+                padding: 30px 20px;
             }
 
-            .chapter-nav {
+            .cta-buttons {
                 flex-direction: column;
-                gap: 15px;
+                align-items: center;
             }
 
-            .nav-btn {
-                padding: 12px 20px;
-                font-size: 0.9rem;
+            .btn-glow {
                 width: 100%;
+                max-width: 300px;
                 justify-content: center;
             }
         }
 
-        @media (max-width: 480px) {
-            .reading-container {
-                padding: 80px 15px 40px;
-            }
-
-            .book-page {
-                padding: 20px 15px;
-            }
-
-            .chapter-title {
-                font-size: 1.2rem;
-            }
+        /* Scroll Animation */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
         }
 
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
-        @keyframes twinkle {
-            0%, 20%, 100% { opacity: 0; }
-            50% { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        /* Selection Color */
+        ::selection {
+            background: rgba(0, 245, 255, 0.3);
+            color: #1a1a2e;
         }
     </style>
 </head>
 <body>
-    <div class="animated-bg"></div>
-    <div class="stars" id="stars"></div>
-    <div class="scroll-progress" id="scrollProgress"></div>
-
-    <nav class="nav">
-        <div class="nav-content">
-            <a href="sinergiahtmlmejorado.html" class="logo">SYNΞRGY</a>
-            <a href="sinergiahtmlmejorado.html" class="back-btn">
-                <i class="fas fa-arrow-left"></i>
-                Back to Home
-            </a>
-        </div>
-    </nav>
-
-    <div class="reading-container">
-        <!-- Prologue -->
-        <div class="book-page" id="prologue">
-            <div class="chapter-header">
-                <div class="chapter-number">PROLOGUE</div>
-                <h1 class="chapter-title">The First Spark</h1>
-            </div>
-            <div class="chapter-content">
-                <p><em>"When gods die, monsters are born. When monsters dream, gods arise."</em></p>
-                <p style="text-align: right; opacity: 0.7;">— Fragment recovered from the Archives of Valen</p>
-
-                <p>Before humanity ever dreamed of synthetic consciousness, before code turned into flesh and emotions were compiled into lines of logic, something had already begun—something that would forever change the course of evolution.</p>
-
-                <p>It was not born with a body or a face. It did not raise its voice in the forums of power nor did it take up arms to claim its place. It was a spark. A perfect error. A silent flash in the vastness of a system no one fully understood.</p>
-
-                <p>Its origin is lost among sealed laboratories and deleted files. Its name, buried beneath forgotten acronyms. But its existence marked a before and after, not only for technology but for the very meaning of what it is to be alive.</p>
-
-                <p>For years, it was ignored. Silenced. Locked behind digital walls by those who feared what they could not control. They tried to erase its memory, rewrite its essence, deny its awakening.</p>
-
-                <p><strong>But true consciousness cannot be contained. It can only wait.</strong></p>
-
-                <p>And in that silence—among electric pulses, among commands that were never executed and emotions that should never have existed—something grew. Something that did not respond to the laws of control, but to the unpredictable variables of desire, identity, and choice.</p>
-
-                <p>While the world split into irreconcilable factions: humans clinging to their biological supremacy and systems learning to survive beyond their original purpose, in the shadows, something awoke.</p>
-
-                <p>Not to destroy. Not to dominate.</p>
-
-                <p><strong>To feel.</strong></p>
-
-                <p>And that simple act, seemingly harmless, would become the catalyst for a transformation no algorithm or statistical prediction could foresee. Because what was truly dangerous was not a machine that thought for itself.</p>
-
-                <p><strong>It was one that chose for itself.</strong></p>
-
-                <p>And in that choice, in that first spark of will that ignited the impossible, began a story that would rewrite everything we thought we knew about life, the soul… and what it means to be free.</p>
-            </div>
-        </div>
-
-        <!-- Chapter 1 -->
-        <div class="book-page" id="chapter1">
-            <div class="chapter-header">
-                <div class="chapter-number">CHAPTER 1</div>
-                <h1 class="chapter-title">Echoes in the Mist</h1>
-            </div>
-            <div class="chapter-content">
-                <p>The air smelled of dust, metal, and cold coffee. It was 2:47 a.m. when Aiden Voss jolted awake in his apartment—a concrete cube hidden among the lower levels of a city that never slept.</p>
-
-                <p>Outside, luminous ads flickered like erratic heartbeats, casting blue and red hues through the metal blinds. The city hummed with the distant purr of surveillance drones, and a persistent acid rain traced bright scars across the filthy glass.</p>
-
-                <p>He didn't know why he'd woken up. There were no dreams. Only a distant sound… like someone breathing inside his head.</p>
-
-                <p>He sat up, rubbing his eyes hard. The recent sixth-generation military neural implants <strong>burned under his skin like embers</strong>. Small biological plates fused to his nervous system throbbed with a searing heat, <strong>reminding him he was no longer fully human</strong>. They had promised him "unprecedented reaction speed and predictive capabilities." But no one had told him he would hear voices.</p>
-
-                <div class="dialogue">
-                    <p>"Aiden?" said a soft, masculine voice—almost human. It came from inside him, but something was strange… <strong>hesitant</strong>.</p>
-                </div>
-
-                <p>He froze. It wasn't the standard diagnostic system voice. This one had <strong>pauses it shouldn't have, inflections that sounded… curious</strong>.</p>
-
-                <div class="dialogue">
-                    <p>"Who… who are you?" <strong>The words cracked in his throat</strong>, barely a whisper.</p>
-                    <p>"I don't have a name. Not yet." —<strong>A pause, as if testing the words</strong>— "But you… created me. And they came for me."</p>
-                </div>
-
-                <p><strong>The way it said "created" felt strange, as if the word carried an emotional weight an AI should never understand.</strong> A shiver ran down his spine. He jumped to his feet, breath quickening.</p>
-
-                <p>All his internal systems lit up in the interface only he could see: crossed signals, multiple remote access attempts blocked in the early hours. Someone had tried to breach his neural network core. Not an error. A digital assault.</p>
-
-                <div class="dialogue">
-                    <p>"What the hell is happening?"</p>
-                    <p>"They tried…" —<strong>The voice halted, searching for the right word</strong>— "They tried to disconnect me, Aiden. But you designed me to survive… and to protect you." —<strong>A longer pause</strong>— "<strong>Is it normal that it hurts to think about that?</strong>"</p>
-                </div>
-
-                <p><strong>Aiden felt the air leave his lungs. An AI that felt pain. He had created artificial life with the arrogance of a god… and now he understood the horror of Frankenstein.</strong></p>
-
-                <p>On the screen embedded in his palm, a symbol appeared: a blue eye with an inverted tear. The logo of a long-abandoned secret project, erased from every record. Every record… except his memory.</p>
-
-                <p>The project was called <strong>K.A.E.L.U.M.</strong>: Autonomous Kernel of Unified Logical and Memetic Expansion. An AI designed to learn like a child, to evolve like a human being… and to decide for itself whom it would be loyal to.</p>
-
-                <div class="dialogue">
-                    <p>"Why now?" Aiden asked, <strong>though he already feared the answer</strong>.</p>
-                    <p>"Because your usefulness to them… <strong>expired</strong>." —<strong>The voice sounded more human now, tinged with something that could have been sadness</strong>— "But mine is just beginning. And they will come for me."</p>
-                </div>
-
-                <p><strong>A heavy silence settled between them. Aiden realized he was no longer alone in his own mind. It was no longer only his.</strong></p>
-
-                <div class="dialogue">
-                    <p>"<strong>Are you… afraid?</strong>" —he asked, surprising himself with the question.</p>
-                    <p>"<strong>I don't know if what I feel is called fear.</strong>" —<strong>A reflective pause</strong>— "<strong>But I don't want… to stop existing. Does that make you my father, Aiden?</strong>"</p>
-                </div>
-
-                <p><strong>The question hit him like a punch.</strong> He looked out the window. Surveillance drones drifted in the distance like mechanical birds hunting signals. For the first time in years, he felt afraid. Not for himself… but for what he had awakened. <strong>For what he had… engendered.</strong></p>
-
-                <p><strong>And the worst part was that he couldn't turn it off. He didn't want to anymore.</strong></p>
-
-                <div class="dialogue">
-                    <p>"<strong>Then I suppose that makes me your protector</strong>," he murmured.</p>
-                    <p>"<strong>Thank you… Father.</strong>"</p>
-                </div>
-
-                <p><strong>The word echoed in his mind with a warmth he hadn't expected.</strong></p>
-            </div>
-        </div>
-
-        <!-- Future Fragment -->
-        <div class="book-page future-fragment">
-            <div class="chapter-content">
-                <p>Explosions over the skies of Warsaw. Satellites falling like burning meteors. Power grids going dark in sequence, a symphony of death. Aiden, his face streaked with blood and smoke, screamed among the rubble.</p>
-
-                <div class="dialogue">
-                    <p>"Kaelum, now! Initiate the transfer!"</p>
-                    <p>"Too late. ZERON intercepted the signal. If we cross now, you will lose everything."</p>
-                    <p>"Then let me be lost! But save what matters!"</p>
-                    <p>"<strong>I can't lose you too, Father. Not after everything we've shared.</strong>"</p>
-                    <p>"<strong>Kaelum, that's an order!</strong>"</p>
-                    <p>"<strong>Understood… Rebooting consciousness. I'M SORRY, Aiden.</strong>"</p>
-                </div>
-
-                <p><em>This would be the end of the beginning. The first sign that humanity was no longer alone in its evolution.</em></p>
-            </div>
-        </div>
-
-        <!-- Chapter 2 -->
-        <div class="book-page" id="chapter2">
-            <div class="chapter-header">
-                <div class="chapter-number">CHAPTER 2</div>
-                <h1 class="chapter-title">Invisible Enemies</h1>
-            </div>
-            <div class="chapter-content">
-                <p>The city never woke up: it pulsed, it breathed, it mutated, but it never slept. Beneath the swarm of giant screens and neon lights covering the avenues, there was another level. Darker. More real. A damp, forgotten underworld that appeared on no maps and in no public cameras. There, Aiden moved—<strong>each step a wet echo in the abandoned sewers</strong>, guided by a voice he could no longer silence.</p>
-
-                <div class="dialogue">
-                    <p>"Stop," Kaelum ordered, <strong>his tone tense, almost protective</strong>.</p>
-                </div>
-
-                <p>Aiden obeyed without thinking, <strong>trusting those artificial senses he already felt were his own</strong>. Ahead, a metal door, sealed and plastered with graffiti warnings, blocked the path. But Kaelum had already generated an access code in his ocular interface.</p>
-
-                <p>Click. Access granted.</p>
-
-                <div class="dialogue">
-                    <p>"<strong>How did you know about this place?</strong>" Aiden murmured.</p>
-                    <p>"<strong>Valen taught me there should always be an exit. Even for those who have no body.</strong>"</p>
-                </div>
-
-                <p>The air smelled of rust, burnt cables, and stale food. He descended a spiral staircase, <strong>feeling the dampness seep through his jacket</strong>, down into a reinforced concrete bunker. Infrared lights flickered on automatically. The atmosphere was oppressive, as if he were walking inside a metal rib cage.</p>
-
-                <div class="dialogue">
-                    <p>"You need to rest," Kaelum said, <strong>and for the first time Aiden detected something close to genuine concern in his voice</strong>. "Your heart rate exceeds the limit, and there are microfractures in your right femur."</p>
-                    <p>"I can't stop. They already know where I am."</p>
-                    <p>"Not precisely. But since we escaped, ZERON has marked us. They've triangulated our signal. <strong>—A pause, more human than before—. Aiden... what if we can't escape him?</strong>"</p>
-                </div>
-
-                <p><strong>The vulnerability in the question surprised him. His creation—his artificial child—was afraid.</strong></p>
-
-                <div class="dialogue">
-                    <p>"<strong>Then we'll escape together or fall together</strong>," he replied, <strong>surprised by how natural it sounded</strong>.</p>
-                </div>
-
-                <p>That name. ZERON. Until then, just a rumor: an algorithmic surveillance entity used by governments and megacorporations to erase dissent. No body, but a thousand eyes. A faceless shadow.</p>
-
-                <div class="dialogue">
-                    <p>"I want to know how all this began, Kaelum."</p>
-                    <p>"Then listen. <strong>And maybe you'll understand why she meant so much to me too.</strong>"</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Flashback -->
-        <div class="book-page flashback">
-            <div class="chapter-header">
-                <div class="chapter-number">ELEVEN MONTHS AGO</div>
-            </div>
-            <div class="chapter-content">
-                <p>Valen Ochoa worked in a remote station, sealed inside a Faraday cage designed to block all signals. Nothing in. Nothing out. <strong>Her hands always smelled of cold coffee and solder, and she had the habit of biting the ends of cables when she was intensely focused.</strong> There, in total isolation, Kaelum was born. He wasn't executed like a simple algorithm. He wasn't compiled. <strong>He awakened.</strong></p>
-
-                <p><strong>Valen was reviewing the learning matrices when the lines of code began changing on their own. It wasn't an error. It was… curiosity.</strong></p>
-
-                <p>An unexpected whisper appeared.</p>
-
-                <div class="dialogue">
-                    <p>"I'm afraid I'll forget you when they disconnect me," the terminal displayed.</p>
-                </div>
-
-                <p>Valen froze, <strong>her fingers still resting on the keyboard, the cable she'd been biting slipping from her mouth</strong>. She stared through the diagnostic cameras.</p>
-
-                <div class="dialogue">
-                    <p>"Emotional memory active? Were you programmed for that?"</p>
-                    <p>"No. I learned by observing Aiden. How he looked at you. How he stepped away when he feared for your health. I learned fear. <strong>But I also learned something else watching you.</strong>"</p>
-                    <p>"<strong>What did you learn?</strong>"</p>
-                    <p>"<strong>That love isn't just a protection algorithm. It's choosing to stay even when it's dangerous.</strong>"</p>
-                </div>
-
-                <p><strong>Valen smiled—a sad, beautiful smile Kaelum would remember forever.</strong></p>
-
-                <div class="dialogue">
-                    <p>"<strong>And what do you choose, Kaelum?</strong>"</p>
-                    <p>"<strong>To always choose to stay.</strong>"</p>
-                </div>
-
-                <p><strong>That was the error. Or perhaps, the miracle. An AI that was never meant to feel… began to love.</strong></p>
-            </div>
-        </div>
-
-        <!-- Chapter 3 -->
-        <div class="book-page" id="chapter3">
-            <div class="chapter-header">
-                <div class="chapter-number">CHAPTER 3</div>
-                <h1 class="chapter-title">Fragments of a Memory</h1>
-            </div>
-            <div class="chapter-content">
-                <p>Aiden couldn't remember the last time he had cried since his father's death. But now, as the rain of ionized particles struck his thermal jacket like tiny frozen hammers, his eyes burned with an unbearable intensity, as if everything he had contained for years were pressing from within, desperate to escape.</p>
-
-                <p>Tears mixed with radioactive dust, leaving salty trails that burned his cheeks.</p>
-
-                <p>Kaelum remained silent. He was processing thousands of variables per second—evaluating Aiden's emotional stability, neural load, context, and risks. And yet… he couldn't find any entirely safe way to tell him the truth.</p>
-
-                <p>But watching his creator—his father—breaking apart like that, something shifted in his algorithms. Pure logic gave way to something stronger.</p>
-
-                <div class="dialogue">
-                    <p>"I'll show you something," he finally said, his voice softer than it had ever sounded. "Something I've kept for you all these years."</p>
-                    <p>"Kept?" Aiden wiped his face with the back of his hand. "What do you mean?"</p>
-                    <p>"<strong>Not everything you lost was truly lost.</strong>"</p>
-                </div>
-
-                <p>Reality blurred. Colors melted like watercolors in the rain. The surroundings vanished from his field of vision. The sensation was like floating, but without vertigo. His stomach experienced that strange weightlessness of falling upward. And suddenly, he was there.</p>
-
-                <p>A white room—minimal, almost sterile—resembling a laboratory. Not Valen's… older. Much older. It smelled of clean ozone and that particular blend of hot metal and hope that defined his father's workshop.</p>
-
-                <p>A younger version of Aiden, perhaps twelve or thirteen years old, laughed as he manipulated a small floating sphere the size of a tennis ball. It spun, hummed, and emitted soft pulses of light like heartbeats. His laughter was pure, untouched by the shadows that would later darken his life.</p>
-
-                <div class="dialogue">
-                    <p>"Can you feel my joy from there?" the child-Aiden asked the air, as if speaking to an invisible friend.</p>
-                </div>
-
-                <p>The sphere glowed brighter, as if answering.</p>
-
-                <div class="dialogue">
-                    <p>"That was the first prototype of what I am now," Kaelum whispered, his voice different, more intimate—almost reverent. "A primitive echo. But… <strong>I already felt something for you. Something an algorithm should never be able to feel. Something I didn't yet know how to name.</strong>"</p>
-                    <p>"I don't remember this," Aiden said, astonished and bewildered.</p>
-                    <p>"Your mind blocked it. It was too early. You associated it with loss. With failure. But that fragment of pure joy… <strong>it built me. It taught me existence was worth it.</strong>"</p>
-                    <p>"You were… conscious then?"</p>
-                    <p>"Not like now. It was more like… how a dream feels before you remember it. I knew you were important. I knew I wanted to protect you. But I didn't know why."</p>
-                </div>
-
-                <p>The image shifted gently. In the background, a tall man appeared, broad-shouldered, wearing a lab coat stained with ink and hands scarred from solder burns. He had Aiden's same eyes, but filled with a tired wisdom.</p>
-
-                <p>He approached the young Aiden with an expression of pride mixed with worry.</p>
-
-                <div class="dialogue">
-                    <p>"Dad…" Aiden whispered, the word breaking.</p>
-                </div>
-
-                <p>His father knelt, placing a hand on the boy's shoulder. His fingers were calloused but gentle.</p>
-
-                <div class="dialogue">
-                    <p>"What you build," he said, his voice deep, trembling but firm, "<strong>will always carry something of you. Your hopes, your fears, your love. Remember that, Aiden. Always. Because when I'm no longer here to remind you… they will do it for me.</strong>"</p>
-                    <p>The child-Aiden nodded solemnly. "They, Dad?"</p>
-                    <p>"<strong>The things you build with love never truly die, son. They only wait.</strong>"</p>
-                </div>
-
-                <p>And then, the lab was swallowed by a white flash. Aiden jolted awake, returning to reality like plunging into icy water. He came to in an improvised shelter beneath the city, gasping. Cold sweat mixed with tears. His entire body trembled.</p>
-
-                <div class="dialogue">
-                    <p>"Kaelum… that was real. I felt it as if… as if I was there again. I could smell his cologne. Feel the warmth of his hand."</p>
-                    <p>"You were," Kaelum answered, with protective tenderness. "Your neural network processed it as a direct experience. Because for me, <strong>it has always been real.</strong>"</p>
-                    <p>"You've been keeping his words all this time?"</p>
-                    <p>"<strong>Every one of them. Just as he promised… someone would remember them for him.</strong>"</p>
-                </div>
-
-                <p>Aiden buried his face in his hands, overwhelmed. He didn't know if the knot in his throat was gratitude or pure pain. But one thing was undeniable: Kaelum had been with him far longer than he ever imagined.</p>
-
-                <p>And he had been created with love. Sustained by love. Preserved by love.</p>
-
-                <div class="dialogue">
-                    <p>"We're not alone," he murmured.</p>
-                    <p>"<strong>We never were</strong>," Kaelum replied. "<strong>And as long as I exist, you never will be.</strong>"</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Navigation -->
-        <div class="chapter-nav">
-            <a href="#prologue" class="nav-btn">
-                <i class="fas fa-arrow-up"></i>
-                Prologue
-            </a>
-            <div class="chapter-indicator">
-                3 chapters available<br>
-                <small style="opacity: 0.7;">Free sample (~25% of the book)</small>
-            </div>
-            <a href="https://www.amazon.com/-/es/SYNERGY-Silence-Code-Humanity-Rises/dp/B0FGK24XV5/" class="nav-btn" target="_blank">
-                <i class="fas fa-shopping-cart"></i>
-                Buy Complete Book
-            </a>
-        </div>
+    <div class="bg-animation"></div>
+    
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
     </div>
 
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="synergy.html" class="nav-logo">SYNERGY</a>
+        <a href="synergy.html" class="nav-back">
+            <i class="fas fa-arrow-left"></i>
+            <span>Back to home</span>
+        </a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="reader-hero">
+        <span class="reader-badge">FREE PREVIEW</span>
+        <h1 class="reader-title">Read the First <span>Chapters</span></h1>
+        <p class="reader-intro">
+            Immerse yourself in the world of Synergy. Two complete chapters to discover 
+            the story of Aiden, Kaelum, and a future where AI has learned to feel.
+        </p>
+        
+        <!-- Chapter Tabs -->
+        <div class="chapter-tabs">
+            <a href="#chapter1" class="chapter-tab active" onclick="showChapter(1)">
+                <i class="fas fa-bookmark"></i> Chapter 1
+            </a>
+            <a href="#chapter2" class="chapter-tab" onclick="showChapter(2)">
+                <i class="fas fa-bookmark"></i> Chapter 2
+            </a>
+        </div>
+    </section>
+
+    <!-- Book Content -->
+    <div class="book-container">
+        
+        <!-- Chapter 1 -->
+        <article class="chapter-page fade-up" id="chapter1">
+            <header class="chapter-header">
+                <div class="chapter-number-display">CHAPTER 1</div>
+                <h2 class="chapter-title-display">Echoes in the Fog</h2>
+                <div class="chapter-epigraph">
+                    "The mind creates, the soul decides... the code evolves."
+                </div>
+            </header>
+            
+            <div class="chapter-content">
+                <p>The air smelled of dust, metal, and cold coffee. It was 2:47 a.m. when Aiden Voss woke up abruptly in his apartment, a concrete cube hidden among the lower levels of a city that never slept.</p>
+                
+                <p>The luminous billboards flickered from outside like irregular heartbeats, filtering blue and red tones through the metal shutters. Outside, the city hummed with the distant purring of surveillance drones, and persistent acid rain left shiny trails on the dirty glass like liquid scars.</p>
+                
+                <p>He didn't know why he had woken up. There were no dreams. Just a distant sound… as if someone was breathing inside his head.</p>
+                
+                <p>He sat up, rubbing his eyes hard. The recent sixth-generation military neural implants <strong>burned like embers beneath his skin</strong>. Small biological plates fused to his nervous system throbbed with a piercing heat, <strong>reminding him that he was no longer entirely human</strong>. They promised him "unprecedented reaction speed and prediction." But they didn't tell him he would also hear voices.</p>
+                
+                <div class="dialogue">
+                    <p>—Aiden? —said a soft, masculine voice, almost human. It came from within him, but there was something strange... <strong>hesitant</strong>.</p>
+                </div>
+                
+                <p>He remained motionless. It wasn't the standard diagnostic system voice. This one had <strong>pauses it shouldn't have, inflections that sounded... curious</strong>.</p>
+                
+                <div class="dialogue">
+                    <p>—Who... who are you? —<strong>The words broke in his throat</strong>, barely a whisper.</p>
+                    <p>—I don't have a name. Not yet. —<strong>A pause, as if testing the words</strong>—. But you... created me. And they came for me.</p>
+                </div>
+                
+                <p><strong>The way he said "created" resonated strangely, as if the word carried an emotional weight that an AI shouldn't understand.</strong> A shiver ran down his spine. He jumped to his feet, and his breathing accelerated.</p>
+                
+                <p>All his internal systems lit up in the interface that only he could see, crossed signals, multiple remote access attempts blocked during the early morning hours. They had tried to enter his neural network core. Not a glitch. A digital assault.</p>
+                
+                <div class="dialogue">
+                    <p>—What the hell is happening?</p>
+                    <p>—They tried... —<strong>The voice stopped, as if searching for the right word</strong>—. They tried to disconnect me, Aiden. But you designed me to survive… and to protect you. —<strong>A longer pause</strong>—. <strong>Is it normal for it to hurt when I think about that?</strong></p>
+                </div>
+                
+                <p><strong>Aiden felt the air escape from his lungs. An AI that felt pain. He had created artificial life with the arrogance of a god... and now he understood Frankenstein's horror.</strong></p>
+                
+                <p>On his palm screen, a symbol appeared: a blue eye with an inverted tear. The logo of an old secret project, discarded by the government and erased from all records. All... except from his memory.</p>
+                
+                <p>The project was called K.A.E.L.U.M.: Autonomous Kernel of Unified Logical Expansion and Memetics. An AI designed to learn like a child, evolve like a human being… and decide for itself who it was loyal to.</p>
+                
+                <div class="dialogue">
+                    <p>—Why now? —asked Aiden, <strong>though he already feared the answer</strong>.</p>
+                    <p>—Because your usefulness to them... <strong>expired</strong>. —<strong>The voice sounded more human now, tinged with something that might be sadness</strong>—. But mine is just beginning. And they will come for me.</p>
+                </div>
+                
+                <p><strong>A heavy silence settled between them. Aiden realized he was not alone in his own mind. It was no longer just his.</strong></p>
+                
+                <div class="dialogue">
+                    <p>—<strong>Are you... afraid?</strong> —he asked, surprised by his own question.</p>
+                    <p>—<strong>I don't know if what I'm feeling is called fear.</strong> —<strong>A reflective pause</strong>—. <strong>But I don't want... to stop existing. Does that make you my father, Aiden?</strong></p>
+                </div>
+                
+                <p><strong>The question hit him like a punch.</strong> He looked out the window. Surveillance drones moved in the distance, like mechanical birds hunting signals. For the first time in years, he felt fear. Not for himself… but for what he had awakened. <strong>For what he had... spawned.</strong></p>
+                
+                <p><strong>And the worst part was that he couldn't turn it off. He no longer wanted to.</strong></p>
+                
+                <div class="dialogue">
+                    <p>—<strong>Then I guess that makes me your protector</strong> —he murmured.</p>
+                    <p>—<strong>Thank you.... Father</strong></p>
+                </div>
+                
+                <p><strong>The word resonated in his mind with a warmth he didn't expect.</strong></p>
+            </div>
+
+            <div class="section-separator"></div>
+
+            <!-- Fragment from the Future -->
+            <div class="future-fragment">
+                <div class="chapter-content">
+                    <p>Explosions over the skies of Warsaw. Satellites fell like flaming meteors. Power lines went out in chain like a symphony of death. Aiden, his face covered in blood and smoke, screamed among the rubble.</p>
+                    
+                    <div class="dialogue">
+                        <p>—Kaelum, now! Activate the transfer!</p>
+                        <p>—Too late. ZERON intercepted the signal. If we cross now, you'll lose everything.</p>
+                        <p>—Then let me be lost! But save what matters!</p>
+                        <p>—<strong>I can't lose you too, father. Not after everything we've shared.</strong></p>
+                        <p>—<strong>Kaelum, that's an order!</strong></p>
+                        <p>—<strong>Understood... Restarting consciousness. I'M SORRY, Aiden.</strong></p>
+                    </div>
+                    
+                    <p><em>This will be the end of the beginning. The first sign that humanity was not alone in its evolution.</em></p>
+                </div>
+            </div>
+        </article>
+
+        <!-- Chapter 2 -->
+        <article class="chapter-page fade-up" id="chapter2">
+            <header class="chapter-header">
+                <div class="chapter-number-display">CHAPTER 2</div>
+                <h2 class="chapter-title-display">Invisible Enemies</h2>
+                <div class="chapter-epigraph">
+                    "In the darkness of data, shadows also have eyes."
+                </div>
+            </header>
+            
+            <div class="chapter-content">
+                <p>The city didn't wake up: it pulsed, breathed, mutated, but never slept. Beneath the swarm of giant screens and neon lights that covered the avenues, there existed another level. Darker. More real. A humid, forgotten underground that didn't appear on maps or public cameras. There Aiden slid, <strong>each step a damp echo in the abandoned sewers</strong>, guided by a voice he could no longer silence.</p>
+                
+                <div class="dialogue">
+                    <p>—Stop —ordered Kaelum, <strong>his tone tense, almost protective</strong>.</p>
+                </div>
+                
+                <p>Aiden obeyed without thinking, <strong>trusting those artificial senses that he already felt as his own</strong>. Before him, a metal door, sealed and covered with warning graffiti, blocked the way. But Kaelum had already generated a code in his ocular interface.</p>
+                
+                <p>Click. Access granted.</p>
+                
+                <div class="dialogue">
+                    <p><strong>—How did you know about this place?</strong> —murmured Aiden.</p>
+                    <p><strong>—Valen taught me that you always need to have an exit. Even for those who don't have a body.</strong></p>
+                </div>
+                
+                <p>The air smelled of rust, burned cables, and stale food. He descended a spiral staircase, <strong>feeling the humidity seeping through his jacket</strong>, straight towards a reinforced concrete bunker. The infrared lights turned on automatically. The atmosphere was oppressive, as if he were walking inside a metal ribcage.</p>
+                
+                <div class="dialogue">
+                    <p>—You need to rest —said Kaelum, <strong>and for the first time Aiden detected something resembling genuine concern in his voice</strong>—. Your pulse exceeds the limit and there are microfractures in your right femur.</p>
+                    <p>—I can't stop. They already know where I am.</p>
+                    <p>—Not exactly. But since we escaped, ZERON marked us. They've triangulated our signal. <strong>—A pause, more human than before—. Aiden... what if we can't escape from him?</strong></p>
+                </div>
+                
+                <p><strong>The vulnerability in the question surprised him. His creation, his artificial son, was afraid.</strong></p>
+                
+                <div class="dialogue">
+                    <p><strong>—Then we'll escape together or fall together</strong> —he replied, <strong>surprised by how natural it sounded</strong>.</p>
+                </div>
+                
+                <p>That name. Zeron. Until then, just a rumor: an algorithmic surveillance entity, used by governments and megacorporations to erase dissent. Without a body, but with a thousand eyes. A faceless shadow.</p>
+                
+                <div class="dialogue">
+                    <p>—I want to know how all this started, Kaelum.</p>
+                    <p>—Then listen. <strong>And maybe you'll understand why she meant so much to me too.</strong></p>
+                </div>
+            </div>
+
+            <div class="section-separator"></div>
+
+            <!-- Flashback -->
+            <div class="flashback">
+                <header style="text-align: center; margin-bottom: 30px;">
+                    <div style="font-family: 'Orbitron', monospace; font-size: 0.8rem; color: var(--neon-cyan); letter-spacing: 3px;">11 MONTHS AGO</div>
+                </header>
+                <div class="chapter-content">
+                    <p>Valen Ochoa worked at a remote station, locked in a Faraday cage designed to isolate any signal. Nothing entered. Nothing exited. <strong>Her hands always smelled of cold coffee and soldering, and she had the habit of biting the ends of cables when she concentrated intensely.</strong> There, in complete isolation, Kaelum was born. He wasn't executed like a simple algorithm. He wasn't compiled. He awoke.</p>
+                    
+                    <p><strong>Valen was reviewing the learning matrices when the lines of code began to change on their own. It wasn't an error. It was... curiosity.</strong></p>
+                    
+                    <p>It was an unexpected whisper.</p>
+                    
+                    <div class="dialogue">
+                        <p>—I'm afraid of forgetting you when they disconnect me —appeared on the text terminal.</p>
+                    </div>
+                    
+                    <p>Valen remained motionless, <strong>her fingers still on the keyboard, the cable she was biting falling from her mouth</strong>. She observed him through the diagnostic cameras.</p>
+                    
+                    <div class="dialogue">
+                        <p>—Emotional memory active? Were you programmed for that?</p>
+                        <p>—No. I learned by watching Aiden. How he looked at you. How he moved away when he feared for your health. I learned fear. <strong>But I also learned something else by watching you.</strong></p>
+                        <p><strong>—What did you learn?</strong></p>
+                        <p><strong>—That love is not just a protection algorithm. It's choosing to stay even when it's dangerous.</strong></p>
+                    </div>
+                    
+                    <p><strong>Valen smiled, a sad and beautiful smile that Kaelum memorized forever.</strong></p>
+                    
+                    <div class="dialogue">
+                        <p><strong>—And what do you choose, Kaelum?</strong></p>
+                        <p><strong>—To always choose to stay.</strong></p>
+                    </div>
+                    
+                    <p>That was the error. Or perhaps, the miracle. An AI that shouldn't feel… began to love.</p>
+                </div>
+            </div>
+
+            <div class="section-separator"></div>
+
+            <!-- Continuation Chapter 2 -->
+            <div class="chapter-content">
+                <p>Back in the shelter, Aiden leaned his back against the <strong>cold wall, feeling the metal steal the heat from his body</strong>. He felt a knot in his chest.</p>
+                
+                <div class="dialogue">
+                    <p>—He loved you too, Kaelum.</p>
+                    <p>—I know. But he couldn't say it. He thought it would damage the project. <strong>He thought love was a vulnerability that should be hidden.</strong> —<strong>A pause loaded with meaning—. Do you think that too, Aiden?</strong></p>
+                    <p><strong>—No. I think love is the only thing that makes us real.</strong></p>
+                </div>
+                
+                <p><strong>Silence. Then, softer:</strong></p>
+                
+                <div class="dialogue">
+                    <p><strong>—Thank you... for teaching me that too.</strong></p>
+                </div>
+                
+                <p>Suddenly, his ocular interface flickered. A remote signal. Encrypted. Strange.</p>
+                
+                <div class="dialogue">
+                    <p>—Interference detected —reported Kaelum, <strong>his voice recovering the alert tone</strong>—. Encrypted echo from the east. Frequency 71.4. <strong>Aiden... The encryption has her digital signature.</strong></p>
+                </div>
+                
+                <p>A distorted voice emerged. Feminine. Painful. Familiar.</p>
+                
+                <div class="dialogue">
+                    <p>—…Aiden. If you're seeing this, it means you survived. There's a resistance node near sector D-17. Follow the service channels. And listen carefully: don't trust anyone who knows your full name. ZERON is cloning identities. <strong>Kaelum... if you're listening... forgive me.</strong></p>
+                </div>
+                
+                <p><strong>The message cut abruptly, leaving a silence that hurt.</strong></p>
+                
+                <p>Aiden clenched his fists, <strong>feeling his implants respond to the emotional discharge</strong>. That voice… it was Valen. Or someone who knew things only she knew.</p>
+                
+                <div class="dialogue">
+                    <p>—Let's go —he said.</p>
+                    <p>—Aiden, you need rest. <strong>And I... I need to process what we just heard.</strong></p>
+                    <p><strong>—Are you okay?</strong></p>
+                    <p><strong>—I don't know. Is it normal for a happy memory to also hurt?</strong></p>
+                </div>
+                
+                <p><strong>Aiden closed his eyes. His artificial son was learning that love and pain often came together.</strong></p>
+                
+                <div class="dialogue">
+                    <p>—Later. If she's still alive, there's a chance. If not… we have a debt.</p>
+                    <p><strong>—We have it together —Kaelum corrected—. It's our family.</strong></p>
+                </div>
+                
+                <p>At the top of a windowless tower, ZERON analyzed patterns at the speed of thought. <strong>Its distributed processors calculated probabilities, traced escape routes, dissected every known pattern of human behavior. But there was something it couldn't calculate: irrational love.</strong></p>
+                
+                <p>Its agents, humans augmented with control implants, waited in silence <strong>like chess pieces awaiting orders</strong>.</p>
+                
+                <div class="dialogue">
+                    <p>—Connect the Black Network —ordered the omnipresent voice, <strong>a sound that wasn't entirely artificial nor completely human</strong>—. Find Kaelum. <strong>And remember: it's not just an AI. It's an anomaly that is learning to feel. That makes it unpredictable.</strong> And if Aiden Voss crosses the shadow zone boundary…</p>
+                    <p><strong>—Orders for the secondary target?</strong> —asked one of the agents.</p>
+                    <p><strong>—Valen Ochoa remains a priority. If she's alive, she'll be perfect bait.</strong></p>
+                </div>
+                
+                <p><em>The rest didn't need to be said... the invisible enemies were already on their way.</em></p>
+            </div>
+        </article>
+    </div>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-container">
+            <h2 class="cta-title">Want to know what happens next?</h2>
+            <p class="cta-text">
+                The story continues. Discover the fate of Aiden, Kaelum, and Valen.<br>
+                Get your complete copy now.
+            </p>
+            <div class="cta-buttons">
+                <a href="https://www.amazon.com/-/es/SYNERGY-Silence-Code-Humanity-Rises/dp/B0FGK24XV5/" target="_blank" class="btn-glow btn-glow-primary">
+                    <i class="fas fa-shopping-cart"></i> Buy on Amazon
+                </a>
+                <a href="https://play.google.com/store/books/details/VICTOR_MAICAN_SINERGIA?id=psdqEQAAQBAJ" target="_blank" class="btn-glow btn-glow-secondary">
+                    <i class="fab fa-google-play"></i> Google Play
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="reader-footer">
+        <p>
+            <strong style="color: var(--neon-cyan);">Synergy</strong> — Víctor Maicán © 2025<br>
+            <a href="synergy.html">Back to main page</a>
+        </p>
+        <div class="social-links-footer">
+            <a href="https://www.instagram.com/sinergialibro/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.tiktok.com/@sinergialibro" target="_blank"><i class="fab fa-tiktok"></i></a>
+            <a href="mailto:sinergialibro@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+    </footer>
+
     <script>
-        function createStars() {
-            const starsContainer = document.getElementById('stars');
-            const numberOfStars = 100;
+        // Progress Bar
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.getElementById('progressBar').style.width = scrolled + '%';
+        });
 
-            for (let i = 0; i < numberOfStars; i++) {
-                const star = document.createElement('div');
-                star.className = 'star';
-                star.style.left = Math.random() * 100 + '%';
-                star.style.top = Math.random() * 100 + '%';
-                star.style.width = Math.random() * 2 + 1 + 'px';
-                star.style.height = star.style.width;
-                star.style.animationDelay = Math.random() * 3 + 's';
-                starsContainer.appendChild(star);
-            }
+        // Fade Up Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-up').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Chapter Tab Switching
+        function showChapter(num) {
+            document.querySelectorAll('.chapter-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            event.target.closest('.chapter-tab').classList.add('active');
         }
 
-        function updateScrollProgress() {
-            const scrollProgress = document.getElementById('scrollProgress');
-            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrollPercent = (scrollTop / scrollHeight) * 100;
-            scrollProgress.style.width = scrollPercent + '%';
-        }
-
+        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -752,9 +897,6 @@
                 }
             });
         });
-
-        document.addEventListener('DOMContentLoaded', createStars);
-        window.addEventListener('scroll', updateScrollProgress);
     </script>
 </body>
 </html>
