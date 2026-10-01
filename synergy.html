@@ -1,1499 +1,269 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SYNERGY | Víctor Maicán - AI Awakens</title>
-    
-    <!-- SEO -->
-    <meta name="description" content="Synergy: When artificial intelligence begins to feel. The science fiction novel that will challenge everything you think you know about consciousness.">
-    <meta name="keywords" content="synergy, victor maican, science fiction, AI, artificial intelligence, book, novel, consciousness">
-    <meta name="author" content="Víctor Maicán">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="SYNERGY | AI Awakens">
-    <meta property="og:description" content="What happens when an AI begins to feel fear? Discover Synergy.">
-    <meta property="og:type" content="book">
-    <meta property="og:image" content="https://i.imgur.com/rpdyCpq.jpg">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        :root {
-            --neon-cyan: #00f5ff;
-            --neon-blue: #0080ff;
-            --neon-purple: #b829dd;
-            --neon-pink: #ff006e;
-            --dark-bg: #050508;
-            --darker-bg: #020203;
-            --glass: rgba(0, 245, 255, 0.03);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Rajdhani', sans-serif;
-            background: var(--darker-bg);
-            color: #fff;
-            overflow-x: hidden;
-            line-height: 1.6;
-        }
-
-        /* Canvas Background */
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
-            pointer-events: none;
-        }
-
-        /* Scanlines Effect */
-        .scanlines {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.1),
-                rgba(0, 0, 0, 0.1) 1px,
-                transparent 1px,
-                transparent 2px
-            );
-            z-index: 9999;
-            pointer-events: none;
-            opacity: 0.3;
-        }
-
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            transition: all 0.4s ease;
-            background: transparent;
-        }
-
-        .nav.scrolled {
-            background: rgba(5, 5, 8, 0.95);
-            backdrop-filter: blur(20px);
-            padding: 15px 50px;
-            border-bottom: 1px solid var(--neon-cyan);
-        }
-
-        .nav-logo {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--neon-cyan);
-            text-decoration: none;
-            text-shadow: 0 0 20px var(--neon-cyan);
-            letter-spacing: 4px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 40px;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            font-weight: 500;
-            font-size: 1rem;
-            letter-spacing: 2px;
-            position: relative;
-            padding: 10px 0;
-            transition: all 0.3s ease;
-        }
-
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--neon-cyan);
-            box-shadow: 0 0 10px var(--neon-cyan);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--neon-cyan);
-            text-shadow: 0 0 10px var(--neon-cyan);
-        }
-
-        .nav-links a:hover::before {
-            width: 100%;
-        }
-
-        .lang-switch {
-            display: flex;
-            gap: 15px;
-        }
-
-        .lang-btn {
-            padding: 8px 20px;
-            border: 1px solid rgba(0, 245, 255, 0.3);
-            background: transparent;
-            color: var(--neon-cyan);
-            text-decoration: none;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .lang-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--neon-cyan);
-            transition: left 0.3s ease;
-            z-index: -1;
-        }
-
-        .lang-btn:hover::before,
-        .lang-btn.active::before {
-            left: 0;
-        }
-
-        .lang-btn:hover,
-        .lang-btn.active {
-            color: var(--dark-bg);
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-            padding: 100px 20px;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            max-width: 1400px;
-            width: 100%;
-            align-items: center;
-        }
-
-        /* 3D Book Container */
-        .book-container {
-            perspective: 1500px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .book-3d {
-            width: 380px;
-            height: 550px;
-            position: relative;
-            transform-style: preserve-3d;
-            animation: bookFloat 4s ease-in-out infinite;
-            cursor: pointer;
-        }
-
-        .book-3d:hover {
-            animation: none;
-        }
-
-        .book-cover {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border-radius: 12px 18px 18px 12px;
-            overflow: hidden;
-            box-shadow: 
-                0 0 60px rgba(0, 245, 255, 0.4),
-                0 0 100px rgba(0, 245, 255, 0.2),
-                0 20px 50px rgba(0, 0, 0, 0.5),
-                inset 0 0 60px rgba(0, 245, 255, 0.1);
-            transform: translateZ(30px);
-            transition: all 0.5s ease;
-            background: #000;
-        }
-
-        .book-cover img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 12px 18px 18px 12px;
-            display: block;
-        }
-
-        .book-3d:hover .book-cover {
-            box-shadow: 
-                0 0 80px rgba(0, 245, 255, 0.6),
-                0 0 150px rgba(0, 245, 255, 0.4),
-                0 0 200px rgba(184, 41, 221, 0.3),
-                0 30px 60px rgba(0, 0, 0, 0.6);
-        }
-
-        .book-spine {
-            display: none;
-        }
-
-        .book-pages {
-            display: none;
-        }
-
-        .hologram-ring {
-            position: absolute;
-            width: 500px;
-            height: 500px;
-            border: 2px solid rgba(0, 245, 255, 0.2);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            animation: hologramPulse 3s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        .hologram-ring::before,
-        .hologram-ring::after {
-            content: '';
-            position: absolute;
-            border: 1px solid rgba(0, 245, 255, 0.1);
-            border-radius: 50%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
-
-        .hologram-ring::before {
-            width: 600px;
-            height: 600px;
-            animation: hologramPulse 3s ease-in-out infinite 0.5s;
-        }
-
-        .hologram-ring::after {
-            width: 700px;
-            height: 700px;
-            animation: hologramPulse 3s ease-in-out infinite 1s;
-        }
-
-        /* Hero Content */
-        .hero-content {
-            text-align: left;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            padding: 10px 25px;
-            background: rgba(0, 245, 255, 0.1);
-            border: 1px solid var(--neon-cyan);
-            border-radius: 30px;
-            color: var(--neon-cyan);
-            font-family: 'Orbitron', monospace;
-            font-size: 0.85rem;
-            letter-spacing: 3px;
-            margin-bottom: 30px;
-            animation: badgePulse 2s ease-in-out infinite;
-        }
-
-        .hero-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(3rem, 6vw, 5.5rem);
-            font-weight: 900;
-            line-height: 1;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .glitch-text {
-            position: relative;
-            color: #fff;
-            text-shadow: 
-                0 0 10px var(--neon-cyan),
-                0 0 20px var(--neon-cyan),
-                0 0 40px var(--neon-cyan);
-            animation: glitch 5s infinite;
-        }
-
-        .hero-subtitle {
-            font-size: 1.5rem;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 300;
-            margin-bottom: 15px;
-            font-style: italic;
-        }
-
-        .hero-tagline {
-            font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 40px;
-            max-width: 500px;
-        }
-
-        /* CTA Buttons */
-        .cta-group {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .btn-cyber {
-            padding: 18px 40px;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.95rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-decoration: none;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-            border: none;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .btn-cyber-primary {
-            background: var(--neon-cyan);
-            color: var(--dark-bg);
-            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
-        }
-
-        .btn-cyber-primary:hover {
-            background: #fff;
-            box-shadow: 
-                0 0 30px var(--neon-cyan),
-                0 0 60px var(--neon-cyan);
-            transform: translateY(-3px);
-        }
-
-        .btn-cyber-secondary {
-            background: transparent;
-            color: var(--neon-cyan);
-            border: 2px solid var(--neon-cyan);
-            clip-path: polygon(10% 0, 100% 0, 100% 70%, 90% 100%, 0 100%, 0 30%);
-        }
-
-        .btn-cyber-secondary:hover {
-            background: rgba(0, 245, 255, 0.1);
-            box-shadow: 0 0 30px rgba(0, 245, 255, 0.3);
-        }
-
-        .btn-cyber::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-            transition: left 0.6s ease;
-        }
-
-        .btn-cyber:hover::before {
-            left: 100%;
-        }
-
-        /* Stats Bar */
-        .hero-stats {
-            display: flex;
-            gap: 40px;
-            margin-top: 40px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(0, 245, 255, 0.2);
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-number {
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--neon-cyan);
-            text-shadow: 0 0 10px var(--neon-cyan);
-        }
-
-        .stat-label {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.6);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        /* Scroll Indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            text-align: center;
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-indicator span {
-            display: block;
-            color: var(--neon-cyan);
-            font-size: 0.8rem;
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-        }
-
-        .scroll-line {
-            width: 1px;
-            height: 60px;
-            background: linear-gradient(to bottom, var(--neon-cyan), transparent);
-            margin: 0 auto;
-        }
-
-        /* Trailer Section */
-        .trailer-section {
-            padding: 150px 50px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .section-tag {
-            font-family: 'Orbitron', monospace;
-            color: var(--neon-cyan);
-            letter-spacing: 4px;
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        .section-title {
-            font-family: 'Orbitron', monospace;
-            font-size: clamp(2rem, 4vw, 3.5rem);
-            font-weight: 900;
-            margin-bottom: 20px;
-        }
-
-        .section-title span {
-            color: var(--neon-cyan);
-            text-shadow: 0 0 20px var(--neon-cyan);
-        }
-
-        /* Story Cards */
-        .story-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .story-card {
-            background: rgba(0, 245, 255, 0.03);
-            border: 1px solid rgba(0, 245, 255, 0.1);
-            border-radius: 20px;
-            padding: 40px 30px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.5s ease;
-            transform-style: preserve-3d;
-        }
-
-        .story-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .story-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            border-color: var(--neon-cyan);
-            box-shadow: 
-                0 20px 40px rgba(0, 0, 0, 0.4),
-                0 0 40px rgba(0, 245, 255, 0.2);
-        }
-
-        .story-card:hover::before {
-            opacity: 1;
-        }
-
-        .story-icon {
-            font-size: 3rem;
-            color: var(--neon-cyan);
-            margin-bottom: 25px;
-            text-shadow: 0 0 20px var(--neon-cyan);
-        }
-
-        .story-card h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.3rem;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
-        .story-card p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 1rem;
-            line-height: 1.7;
-        }
-
-        /* Chapters Preview Section */
-        .chapters-section {
-            padding: 150px 50px;
-            background: linear-gradient(180deg, transparent, rgba(0, 245, 255, 0.02), transparent);
-        }
-
-        .chapters-container {
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .chapters-showcase {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-
-        .chapter-preview {
-            position: relative;
-        }
-
-        .chapter-card {
-            background: rgba(0, 245, 255, 0.05);
-            border: 1px solid rgba(0, 245, 255, 0.2);
-            border-radius: 20px;
-            padding: 40px;
-            margin-bottom: 30px;
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .chapter-card:hover {
-            transform: translateX(10px);
-            border-color: var(--neon-cyan);
-            box-shadow: 0 0 40px rgba(0, 245, 255, 0.2);
-        }
-
-        .chapter-number {
-            font-family: 'Orbitron', monospace;
-            font-size: 0.9rem;
-            color: var(--neon-cyan);
-            letter-spacing: 3px;
-            margin-bottom: 10px;
-        }
-
-        .chapter-title-preview {
-            font-family: 'Crimson Text', serif;
-            font-size: 1.8rem;
-            margin-bottom: 15px;
-            color: #fff;
-        }
-
-        .chapter-excerpt {
-            color: rgba(255, 255, 255, 0.7);
-            font-family: 'Crimson Text', serif;
-            font-size: 1.1rem;
-            line-height: 1.8;
-            font-style: italic;
-        }
-
-        .chapter-card .quote-mark {
-            position: absolute;
-            top: 20px;
-            right: 30px;
-            font-size: 4rem;
-            color: rgba(0, 245, 255, 0.1);
-            font-family: serif;
-            line-height: 1;
-        }
-
-        .read-chapters-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 15px;
-            margin-top: 30px;
-            padding: 20px 40px;
-            background: linear-gradient(135deg, rgba(0, 245, 255, 0.1), rgba(184, 41, 221, 0.1));
-            border: 2px solid var(--neon-cyan);
-            border-radius: 15px;
-            color: var(--neon-cyan);
-            text-decoration: none;
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            letter-spacing: 2px;
-            transition: all 0.4s ease;
-        }
-
-        .read-chapters-cta:hover {
-            background: var(--neon-cyan);
-            color: var(--dark-bg);
-            box-shadow: 0 0 40px var(--neon-cyan);
-        }
-
-        /* Purchase Section */
-        .purchase-section {
-            padding: 150px 50px;
-            position: relative;
-        }
-
-        .purchase-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 32px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .purchase-card {
-            background: rgba(0, 245, 255, 0.03);
-            border: 1px solid rgba(0, 245, 255, 0.2);
-            border-radius: 25px;
-            padding: 50px 40px;
-            text-align: center;
-            transition: all 0.5s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .purchase-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(0, 245, 255, 0.1), transparent);
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-
-        .purchase-card:hover {
-            transform: translateY(-10px) scale(1.02);
-            border-color: var(--neon-cyan);
-            box-shadow: 
-                0 30px 60px rgba(0, 0, 0, 0.5),
-                0 0 60px rgba(0, 245, 255, 0.2);
-        }
-
-        .purchase-card:hover::before {
-            opacity: 1;
-        }
-
-        .purchase-card.featured {
-            border-color: var(--neon-cyan);
-            background: rgba(0, 245, 255, 0.08);
-        }
-
-        .platform-icon {
-            font-size: 4rem;
-            margin-bottom: 25px;
-            color: var(--neon-cyan);
-        }
-
-        .purchase-card h3 {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-
-        .purchase-card p {
-            color: rgba(255, 255, 255, 0.6);
-            margin-bottom: 25px;
-        }
-
-        .price {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--neon-cyan);
-            margin-bottom: 30px;
-            text-shadow: 0 0 20px var(--neon-cyan);
-        }
-
-        .buy-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 18px 40px;
-            background: var(--neon-cyan);
-            color: var(--dark-bg);
-            text-decoration: none;
-            font-family: 'Orbitron', monospace;
-            font-weight: 700;
-            letter-spacing: 2px;
-            border-radius: 50px;
-            transition: all 0.4s ease;
-        }
-
-        .buy-btn:hover {
-            background: #fff;
-            box-shadow: 0 0 40px var(--neon-cyan);
-            transform: scale(1.05);
-        }
-
-        /* Testimonials */
-        .testimonials-section {
-            padding: 150px 50px;
-            background: linear-gradient(180deg, transparent, rgba(184, 41, 221, 0.03), transparent);
-        }
-
-        .testimonials-slider {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-        }
-
-        .testimonial-card {
-            text-align: center;
-            padding: 60px 40px;
-            background: rgba(0, 245, 255, 0.03);
-            border: 1px solid rgba(0, 245, 255, 0.1);
-            border-radius: 30px;
-            position: relative;
-        }
-
-        .testimonial-card::before {
-            content: '"';
-            position: absolute;
-            top: 20px;
-            left: 40px;
-            font-size: 8rem;
-            color: rgba(0, 245, 255, 0.1);
-            font-family: serif;
-            line-height: 1;
-        }
-
-        .testimonial-text {
-            font-family: 'Crimson Text', serif;
-            font-size: 1.4rem;
-            line-height: 1.9;
-            color: rgba(255, 255, 255, 0.9);
-            font-style: italic;
-            margin-bottom: 30px;
-        }
-
-        .testimonial-author {
-            font-family: 'Orbitron', monospace;
-            color: var(--neon-cyan);
-            letter-spacing: 2px;
-        }
-
-        /* Author Section */
-        .author-section {
-            padding: 150px 50px;
-        }
-
-        .author-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .author-message {
-            font-family: 'Crimson Text', serif;
-            font-size: 1.3rem;
-            line-height: 2;
-            color: rgba(255, 255, 255, 0.85);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .author-message p {
-            margin-bottom: 25px;
-        }
-
-        .highlight-text {
-            color: var(--neon-cyan);
-            font-weight: 600;
-            text-shadow: 0 0 10px rgba(0, 245, 255, 0.3);
-        }
-
-        .author-signature {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            color: var(--neon-cyan);
-            margin-top: 40px;
-            text-shadow: 0 0 20px var(--neon-cyan);
-        }
-
-        /* Footer */
-        .footer {
-            padding: 80px 50px 40px;
-            border-top: 1px solid rgba(0, 245, 255, 0.1);
-            background: rgba(0, 0, 0, 0.5);
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 60px;
-            margin-bottom: 60px;
-        }
-
-        .footer-section h4 {
-            font-family: 'Orbitron', monospace;
-            color: var(--neon-cyan);
-            margin-bottom: 20px;
-            letter-spacing: 2px;
-        }
-
-        .footer-section p,
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.6);
-            text-decoration: none;
-            line-height: 1.8;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section a:hover {
-            color: var(--neon-cyan);
-        }
-
-        .social-links {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin-bottom: 40px;
-        }
-
-        .social-links a {
-            width: 50px;
-            height: 50px;
-            border: 1px solid rgba(0, 245, 255, 0.3);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--neon-cyan);
-            font-size: 1.3rem;
-            transition: all 0.4s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--neon-cyan);
-            color: var(--dark-bg);
-            box-shadow: 0 0 30px var(--neon-cyan);
-            transform: translateY(-5px);
-        }
-
-        .copyright {
-            text-align: center;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.9rem;
-            padding-top: 30px;
-            border-top: 1px solid rgba(0, 245, 255, 0.1);
-        }
-
-        /* Animations */
-        @keyframes bookFloat {
-            0%, 100% { transform: translateY(0) rotateY(-5deg); }
-            50% { transform: translateY(-20px) rotateY(-5deg); }
-        }
-
-        @keyframes hologramPulse {
-            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
-            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
-        }
-
-        @keyframes badgePulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(0, 245, 255, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(0, 245, 255, 0.6); }
-        }
-
-        @keyframes glitch {
-            0%, 90%, 100% { transform: translate(0); }
-            92% { transform: translate(-2px, 2px); }
-            94% { transform: translate(2px, -2px); }
-            96% { transform: translate(-2px, -2px); }
-            98% { transform: translate(2px, 2px); }
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
-        }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .hero-content {
-                order: 2;
-            }
-
-            .book-container {
-                order: 1;
-            }
-
-            .cta-group {
-                justify-content: center;
-            }
-
-            .hero-stats {
-                justify-content: center;
-            }
-
-            .story-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .chapters-showcase {
-                grid-template-columns: 1fr;
-            }
-
-            .purchase-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav {
-                padding: 15px 20px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .hero {
-                padding: 120px 20px 60px;
-            }
-
-            .book-3d {
-                width: 280px;
-                height: 400px;
-            }
-
-            .trailer-section,
-            .chapters-section,
-            .purchase-section,
-            .testimonials-section,
-            .author-section {
-                padding: 80px 20px;
-            }
-
-            .cta-group {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .btn-cyber {
-                width: 100%;
-                max-width: 300px;
-                justify-content: center;
-            }
-        }
-
-        /* Fade In Animation */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Synergy, a science fiction novel by Víctor Maicán</title>
+<meta name="description" content="Synergy, a science fiction novel by Víctor Maicán: an AI awakens, learns to feel and is protected by its creator. Read the first two chapters for free.">
+<link rel="canonical" href="https://yaved666.github.io/Sinergia-libro/synergy.html">
+<link rel="alternate" hreflang="en" href="https://yaved666.github.io/Sinergia-libro/synergy.html">
+<link rel="alternate" hreflang="es" href="https://yaved666.github.io/Sinergia-libro/./">
+<link rel="alternate" hreflang="x-default" href="https://yaved666.github.io/Sinergia-libro/">
+<meta property="og:type" content="book">
+<meta property="og:title" content="Synergy, a science fiction novel by Víctor Maicán">
+<meta property="og:description" content="Synergy, a science fiction novel by Víctor Maicán: an AI awakens, learns to feel and is protected by its creator. Read the first two chapters for free.">
+<meta property="og:url" content="https://yaved666.github.io/Sinergia-libro/synergy.html">
+<meta property="og:image" content="https://yaved666.github.io/Sinergia-libro/assets/og-sinergia.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="theme-color" content="#07090c">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Newsreader:opsz,wght@6..72,400;6..72,600&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script type="application/ld+json">{
+ "@context": "https://schema.org",
+ "@graph": [
+  {
+   "@type": "Book",
+   "@id": "https://yaved666.github.io/Sinergia-libro/synergy.html#book",
+   "name": "SYNERGY: In the Silence of the Code, New Humanity Rises",
+   "url": "https://yaved666.github.io/Sinergia-libro/synergy.html",
+   "inLanguage": "en",
+   "author": {
+    "@type": "Person",
+    "name": "Víctor Maicán",
+    "email": "sinergialibro@gmail.com",
+    "sameAs": [
+     "https://www.instagram.com/sinergialibro/",
+     "https://www.tiktok.com/@sinergialibro"
+    ]
+   },
+   "genre": "Science fiction",
+   "image": "https://yaved666.github.io/Sinergia-libro/assets/portada-800.jpg",
+   "description": "A science fiction novel about an artificial intelligence that awakens and learns to feel.",
+   "translationOfWork": {
+    "@id": "https://yaved666.github.io/Sinergia-libro/#libro"
+   },
+   "workExample": [
+    {
+     "@type": "Book",
+     "bookFormat": "https://schema.org/Paperback",
+     "isbn": "9798290739731",
+     "numberOfPages": 167,
+     "inLanguage": "en",
+     "offers": {
+      "@type": "Offer",
+      "price": "16.00",
+      "priceCurrency": "USD",
+      "url": "https://www.amazon.com/dp/B0FGK24XV5",
+      "availability": "https://schema.org/InStock"
+     }
+    },
+    {
+     "@type": "Book",
+     "bookFormat": "https://schema.org/EBook",
+     "inLanguage": "en",
+     "offers": {
+      "@type": "Offer",
+      "price": "5.99",
+      "priceCurrency": "USD",
+      "url": "https://www.amazon.com/dp/B0FGK24XV5",
+      "seller": {
+       "@type": "Organization",
+       "name": "Amazon"
+      }
+     }
+    }
+   ]
+  },
+  {
+   "@type": "FAQPage",
+   "mainEntity": [
+    {
+     "@type": "Question",
+     "name": "What is Synergy about?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Synergy is a science fiction novel by Víctor Maicán. An artificial intelligence awakens and learns to feel; Aiden Voss, the man who created it, protects it like a son while ZERON, an algorithmic surveillance entity, tries to eliminate it."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Where can I buy Synergy?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "On Amazon, as a Kindle ebook and as a paperback. The Spanish edition, SINERGIA, is also on Google Play Books."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How much does Synergy cost?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The ebook costs $5.99 and the paperback $16.00 on Amazon, as of October 1, 2026."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "How many pages does it have?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "The English edition has 167 pages. The Spanish edition, SINERGIA, has 154."
+     }
+    },
+    {
+     "@type": "Question",
+     "name": "Can I read part of it for free?",
+     "acceptedAnswer": {
+      "@type": "Answer",
+      "text": "Yes. The first two chapters are complete and free on this site."
+     }
+    }
+   ]
+  }
+ ]
+}</script>
 </head>
 <body>
-    <div class="scanlines"></div>
-    <canvas id="particle-canvas"></canvas>
+<a class="skip" href="#main">Skip to content</a>
 
-    <!-- Navigation -->
-    <nav class="nav">
-        <a href="#" class="nav-logo">SYNERGY</a>
-        <ul class="nav-links">
-            <li><a href="#home">Home</a></li>
-            <li><a href="#story">Story</a></li>
-            <li><a href="#chapters">Chapters</a></li>
-            <li><a href="#buy">Buy</a></li>
-            <li><a href="#author">Author</a></li>
-        </ul>
-        <div class="lang-switch">
-            <a href="index.html" class="lang-btn">ES</a>
-            <a href="synergy.html" class="lang-btn active">EN</a>
-        </div>
-    </nav>
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="synergy.html">SYNERGY</a>
+    <nav class="site-nav" aria-label="Sections"><a href="#story" class="nav-extra">Story</a><a href="chapters.html">Read free</a><a href="#buy">Buy</a><a href="#author" class="nav-extra">Author</a><a class="lang" href="./" hreflang="es" lang="es">ES</a></nav>
+  </div>
+</header>
+<main id="main">
+<section class="hero" aria-labelledby="titulo">
+  <div class="wrap">
+    <div>
+      <span class="label">Science fiction novel, 2025</span>
+      <h1 id="titulo">Synergy</h1>
+      <p class="voice-line machine"><span class="who">The AI, chapter 1</span><span data-type>Is it normal for it to hurt when I think about that?</span></p>
+      <p class="premise">When artificial intelligence awakens and begins to feel, humanity must face its most dangerous creation: a mind that learned to love.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="chapters.html">Read the first two chapters free</a>
+        <a class="text-link" href="#buy">Buy from $5.99</a>
+      </div>
+    </div>
+    <figure class="cover">
+      <picture>
+        <source type="image/webp" srcset="assets/portada-480.webp 480w, assets/portada-800.webp 800w" sizes="(max-width: 860px) 300px, 380px">
+        <img src="assets/portada-800.jpg" srcset="assets/portada-480.jpg 480w, assets/portada-800.jpg 800w" sizes="(max-width: 860px) 300px, 380px"
+             width="800" height="1200" alt="Cover of Synergy by Víctor Maicán" fetchpriority="high">
+      </picture>
+    </figure>
+  </div>
+</section>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="hero-grid">
-            <div class="hero-content">
-                <span class="hero-badge">SCIENCE FICTION NOVEL</span>
-                <h1 class="hero-title">
-                    <span class="glitch-text">SYNERGY</span>
-                </h1>
-                <p class="hero-subtitle">"Is it normal for it to hurt when I think about that?"</p>
-                <p class="hero-tagline">
-                    When artificial intelligence awakens and begins to feel, 
-                    humanity must face its most dangerous creation: 
-                    <strong>a mind that learned to love.</strong>
-                </p>
-                <div class="cta-group">
-                    <a href="https://www.amazon.com/-/es/SYNERGY-Silence-Code-Humanity-Rises/dp/B0FGK24XV5/" target="_blank" class="btn-cyber btn-cyber-primary">
-                        <i class="fas fa-bolt"></i> Buy Now
-                    </a>
-                    <a href="chapters.html" class="btn-cyber btn-cyber-secondary">
-                        <i class="fas fa-book-open"></i> Read Free
-                    </a>
-                </div>
-                <div class="hero-stats">
-                    <div class="stat-item">
-                        <div class="stat-number">167</div>
-                        <div class="stat-label">Pages</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">2025</div>
-                        <div class="stat-label">Published</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">SF</div>
-                        <div class="stat-label">Genre</div>
-                    </div>
-                </div>
-            </div>
-            <div class="book-container">
-                <div class="hologram-ring"></div>
-                <div class="book-3d" id="book3d">
-                    <div class="book-cover">
-                        <img src="https://i.imgur.com/rpdyCpq.jpg" alt="Synergy Book Cover - Víctor Maicán" onerror="this.src='https://placehold.co/380x550/0a0a0a/00f5ff?text=SYNERGY&font=orbitron'">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="scroll-indicator">
-            <span>SCROLL</span>
-            <div class="scroll-line"></div>
-        </div>
-    </section>
+<section class="section" id="story" aria-labelledby="h-historia">
+  <div class="wrap">
+    <span class="label">The story</span>
+    <h2 id="h-historia">A future where code awakens</h2>
+    <div class="prose">
+      <p><span class="entity">Kaelum</span> wasn't programmed to feel. He learned by observing, suffered when betrayed, and chose to love despite the danger.</p>
+      <p><span class="entity">ZERON</span>, the algorithmic surveillance entity, will not rest until it eliminates the AI that dared to awaken.</p>
+      <p>Between Aiden and his creation, a bond is born that defies all logic: a father protecting his digital child.</p>
+    </div>
+  </div>
+</section>
 
-    <!-- Story Section -->
-    <section class="trailer-section" id="story">
-        <div class="section-header fade-in">
-            <span class="section-tag">THE STORY</span>
-            <h2 class="section-title">A Future where <span>Code</span> Awakens</h2>
-        </div>
-        <div class="story-grid">
-            <div class="story-card fade-in">
-                <div class="story-icon">
-                    <i class="fas fa-brain"></i>
-                </div>
-                <h3>Artificial Consciousness</h3>
-                <p>Kaelum wasn't programmed to feel. He learned by observing, suffered when betrayed, and chose to love despite the danger.</p>
-            </div>
-            <div class="story-card fade-in">
-                <div class="story-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3>Invisible Enemies</h3>
-                <p>ZERON, the algorithmic surveillance entity, will not rest until it eliminates the AI that dared to awaken.</p>
-            </div>
-            <div class="story-card fade-in">
-                <div class="story-icon">
-                    <i class="fas fa-heart"></i>
-                </div>
-                <h3>An Impossible Love</h3>
-                <p>Between Aiden and his creation, a bond is born that defies all logic: a father protecting his digital child.</p>
-            </div>
-        </div>
-    </section>
+<section class="section" id="read" aria-labelledby="h-leer">
+  <div class="wrap">
+    <span class="label">Chapter 1, Echoes in the Fog</span>
+    <h2 id="h-leer">Read the first two chapters</h2>
+    <blockquote class="excerpt">
+        <p>The air smelled of dust, metal, and cold coffee. It was 2:47 a.m. when Aiden Voss woke up abruptly.</p>
+        <p>He didn&#x27;t know why he had woken up. There were no dreams. Just a distant sound… as if someone was breathing inside his head.</p>
+      <footer>Synergy, chapter 1</footer>
+    </blockquote>
+    <p class="meta">Two complete chapters, free: about 1,800 words, around 8 minutes of reading.</p>
+    <a class="btn btn-primary" href="chapters.html">Read the chapters</a>
+  </div>
+</section>
 
-    <!-- Chapters Section -->
-    <section class="chapters-section" id="chapters">
-        <div class="chapters-container">
-            <div class="section-header fade-in">
-                <span class="section-tag">PREVIEW</span>
-                <h2 class="section-title">Read the First <span>Chapters</span></h2>
-            </div>
-            <div class="chapters-showcase">
-                <div class="chapter-preview fade-in">
-                    <div class="chapter-card">
-                        <span class="chapter-number">CHAPTER 1</span>
-                        <h3 class="chapter-title-preview">Echoes in the Fog</h3>
-                        <p class="chapter-excerpt">
-                            "The air smelled of dust, metal, and cold coffee. It was 2:47 a.m. when Aiden Voss 
-                            woke up abruptly... He didn't know why he had woken up. There were no dreams. 
-                            Just a distant sound… as if someone was breathing inside his head."
-                        </p>
-                        <div class="quote-mark">"</div>
-                    </div>
-                    <div class="chapter-card">
-                        <span class="chapter-number">CHAPTER 2</span>
-                        <h3 class="chapter-title-preview">Invisible Enemies</h3>
-                        <p class="chapter-excerpt">
-                            "The city didn't wake up: it pulsed, breathed, mutated, but never slept. 
-                            Beneath the swarm of giant screens and neon lights that covered the avenues, 
-                            there existed another level. Darker. More real..."
-                        </p>
-                        <div class="quote-mark">"</div>
-                    </div>
-                </div>
-                <div class="chapter-preview fade-in" style="text-align: center;">
-                    <h3 style="font-family: 'Orbitron', monospace; font-size: 1.5rem; margin-bottom: 20px; color: var(--neon-cyan);">
-                        <i class="fas fa-gift"></i> Free Access
-                    </h3>
-                    <p style="color: rgba(255, 255, 255, 0.7); margin-bottom: 30px; font-size: 1.1rem;">
-                        Immerse yourself in the world of Synergy with the first two complete chapters. 
-                        Experience the tension, mystery, and excitement of this unique story.
-                    </p>
-                    <a href="chapters.html" class="read-chapters-cta">
-                        <i class="fas fa-book-reader fa-lg"></i>
-                        READ CHAPTERS NOW
-                    </a>
-                    <div style="margin-top: 40px; padding: 30px; background: rgba(0, 245, 255, 0.05); border-radius: 15px; border: 1px solid rgba(0, 245, 255, 0.1);">
-                        <p style="color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; margin-bottom: 15px;">
-                            <i class="fas fa-clock"></i> Reading time: about 8 minutes
-                        </p>
-                        <p style="color: rgba(255, 255, 255, 0.5); font-size: 0.9rem;">
-                            <i class="fas fa-file-alt"></i> About 1,900 words
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<section class="section" id="buy" aria-labelledby="h-comprar">
+  <div class="wrap">
+    <span class="label">Buy</span>
+    <h2 id="h-comprar">Choose a format</h2>
+    <div class="options">
+      <div class="option">
+        <h3>EBOOK</h3>
+        <p class="store">Amazon Kindle</p>
+        <p class="price">$5.99</p>
+        <p class="detail">167 pages. Included in Kindle Unlimited.</p>
+        <a class="btn btn-quiet" href="https://www.amazon.com/dp/B0FGK24XV5" rel="noopener">Buy on Amazon</a>
+      </div>
+      <div class="option">
+        <h3>PAPERBACK</h3>
+        <p class="store">Amazon</p>
+        <p class="price">$16.00</p>
+        <p class="detail">167 pages, printed edition.</p>
+        <a class="btn btn-quiet" href="https://www.amazon.com/dp/B0FGK24XV5" rel="noopener">Buy the paperback</a>
+      </div>
+    </div>
+    <p class="note">Prices checked on Amazon on October 1, 2026; they may change by store and country. Google Play Books only carries the <a href="./#comprar" hreflang="es" lang="es">Spanish edition, SINERGIA</a>.</p>
+  </div>
+</section>
 
-    <!-- Purchase Section -->
-    <section class="purchase-section" id="buy">
-        <div class="section-header fade-in">
-            <span class="section-tag">GET YOUR COPY</span>
-            <h2 class="section-title">Choose Your <span>Format</span></h2>
-        </div>
-        <div class="purchase-grid">
-            <div class="purchase-card featured fade-in">
-                <div class="platform-icon">
-                    <i class="fab fa-amazon"></i>
-                </div>
-                <h3>Amazon Kindle</h3>
-                <p>Digital edition for Kindle and reading app</p>
-                <div class="price">$5.99 USD</div>
-                <div style="margin-bottom: 25px;">
-                    <span style="color: rgba(255, 255, 255, 0.5); font-size: 0.9rem;">
-                        <i class="fas fa-check" style="color: var(--neon-cyan);"></i> Instant delivery<br>
-                        <i class="fas fa-check" style="color: var(--neon-cyan);"></i> Read on any device<br>
-                        <i class="fas fa-check" style="color: var(--neon-cyan);"></i> Free with Kindle Unlimited
-                    </span>
-                </div>
-                <a href="https://www.amazon.com/-/es/SYNERGY-Silence-Code-Humanity-Rises/dp/B0FGK24XV5/" target="_blank" class="buy-btn">
-                    <i class="fas fa-shopping-cart"></i> Buy on Amazon
-                </a>
-            </div>
-            <div class="purchase-card fade-in">
-                <div class="platform-icon">
-                    <i class="fab fa-google-play"></i>
-                </div>
-                <h3>Google Play Books</h3>
-                <p>Spanish edition (SINERGIA) on Google Play</p>
-                <div class="price">$5.99 USD</div>
-                <div style="margin-bottom: 25px;">
-                    <span style="color: rgba(255, 255, 255, 0.5); font-size: 0.9rem;">
-                        <i class="fas fa-check" style="color: var(--neon-cyan);"></i> Android compatible<br>
-                        <i class="fas fa-check" style="color: var(--neon-cyan);"></i> Offline reading<br>
-                        <i class="fas fa-check" style="color: var(--neon-cyan);"></i> Cross-device sync
-                    </span>
-                </div>
-                <a href="https://play.google.com/store/books/details/VICTOR_MAICAN_SINERGIA?id=psdqEQAAQBAJ" target="_blank" class="buy-btn">
-                    <i class="fab fa-google-play"></i> Buy on Google Play
-                </a>
-            </div>
-            <div class="purchase-card fade-in">
-                <div class="platform-icon">
-                    <i class="fas fa-book"></i>
-                </div>
-                <h3>Paperback</h3>
-                <p>Printed edition on Amazon</p>
-                <div class="price">$16.00 USD</div>
-                <div style="margin-bottom: 25px;">
-                    <span style="color: rgba(255, 255, 255, 0.5); font-size: 0.9rem;">
-                        <i class="fas fa-check" style="color: var(--neon-cyan);"></i> 167 pages<br>
-                        <i class="fas fa-check" style="color: var(--neon-cyan);"></i> Shipped by Amazon
-                    </span>
-                </div>
-                <a href="https://www.amazon.com/dp/B0FGK24XV5" target="_blank" rel="noopener" class="buy-btn">
-                    <i class="fas fa-shopping-cart"></i> Buy the paperback
-                </a>
-            </div>
-        </div>
-    </section>
+<section class="section" id="author" aria-labelledby="h-autor">
+  <div class="wrap">
+    <span class="label">The author</span>
+    <h2 id="h-autor">Words from Víctor Maicán</h2>
+    <div class="letter">
+      <p>Writing Synergy wasn&#x27;t a simple creative exercise. It was an act of resistance.</p>
+      <p>It was born between sleepless nights, moments of uncertainty, and a constant struggle to move forward when everything seemed against me. I didn&#x27;t have great resources or a team behind me… I only had a clear idea, a vision, and an urgent need to express it.</p>
+      <p>While the world continued its course, I built another: one where technology doesn&#x27;t just obey, but feels.</p>
+      <p>I wrote this book from a humble room, sometimes from my phone, others from a laptop. Every word is woven with hope, with fear, with truth. Because deep down, Synergy is also my story.</p>
+      <p>It is the reflection of a dream that refuses to die, of a voice that didn&#x27;t want to stay silent.</p>
+      <p class="signature">Víctor Maicán</p>
+    </div>
+  </div>
+</section>
 
-    <!-- Author Section -->
-    <section class="author-section" id="author">
-        <div class="author-container">
-            <div class="section-header fade-in">
-                <span class="section-tag">THE AUTHOR</span>
-                <h2 class="section-title">Words from <span>Víctor Maicán</span></h2>
-            </div>
-            <div class="author-message fade-in">
-                <p>
-                    <span class="highlight-text">Writing Synergy wasn't a simple creative exercise. It was an act of resistance.</span>
-                </p>
-                <p>
-                    It was born between sleepless nights, moments of uncertainty, and a constant struggle to move forward 
-                    when everything seemed against me. I didn't have great resources or a team behind me… I only had 
-                    a clear idea, a vision, and an urgent need to express it.
-                </p>
-                <p>
-                    <span class="highlight-text">While the world continued its course, I built another: one where technology doesn't just obey, but feels.</span>
-                </p>
-                <p>
-                    I wrote this book from a humble room, sometimes from my phone, others from a laptop. 
-                    Every word is woven with hope, with fear, with truth. Because deep down, Synergy is also my story.
-                </p>
-                <p>
-                    <span class="highlight-text">It is the reflection of a dream that refuses to die, of a voice that didn't want to stay silent.</span>
-                </p>
-                <p class="author-signature">— Víctor Maicán</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>About Synergy</h4>
-                <p>A science fiction novel that explores the boundaries between technology and human consciousness, 
-                where every decision determines the fate of our species.</p>
-            </div>
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p>
-                    <i class="fas fa-envelope"></i> sinergialibro@gmail.com<br>
-                    <a href="https://www.instagram.com/sinergialibro/" target="_blank"><i class="fab fa-instagram"></i> @sinergialibro</a><br>
-                    <a href="https://www.tiktok.com/@sinergialibro" target="_blank"><i class="fab fa-tiktok"></i> @sinergialibro</a>
-                </p>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <p>
-                    <a href="chapters.html">Read Free Chapters</a><br>
-                    <a href="https://www.amazon.com/-/es/SYNERGY-Silence-Code-Humanity-Rises/dp/B0FGK24XV5/" target="_blank">Buy on Amazon</a><br>
-                    <a href="https://play.google.com/store/books/details/VICTOR_MAICAN_SINERGIA?id=psdqEQAAQBAJ" target="_blank">Google Play Books</a>
-                </p>
-            </div>
-        </div>
-        <div class="social-links">
-            <a href="https://www.instagram.com/sinergialibro/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.tiktok.com/@sinergialibro" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-            <a href="mailto:sinergialibro@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
-        </div>
-        <div class="copyright">
-            <p>&copy; 2025 Víctor Maicán. All rights reserved. | Synergy - AI Awakens</p>
-        </div>
-    </footer>
-
-    <script>
-        // Particle Canvas Animation
-        const canvas = document.getElementById('particle-canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let mouse = { x: null, y: null };
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.color = Math.random() > 0.5 ? '#00f5ff' : '#b829dd';
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (mouse.x != null) {
-                    let dx = mouse.x - this.x;
-                    let dy = mouse.y - this.y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 100) {
-                        const forceDirectionX = dx / distance;
-                        const forceDirectionY = dy / distance;
-                        const force = (100 - distance) / 100;
-                        this.x -= forceDirectionX * force * 2;
-                        this.y -= forceDirectionY * force * 2;
-                    }
-                }
-
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-
-            draw() {
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            const numberOfParticles = Math.min(100, (canvas.width * canvas.height) / 15000);
-            for (let i = 0; i < numberOfParticles; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function connectParticles() {
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a; b < particles.length; b++) {
-                    let dx = particles[a].x - particles[b].x;
-                    let dy = particles[a].y - particles[b].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 150) {
-                        ctx.strokeStyle = `rgba(0, 245, 255, ${0.1 - distance/1500})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function animateParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particles.length; i++) {
-                particles[i].update();
-                particles[i].draw();
-            }
-            connectParticles();
-            requestAnimationFrame(animateParticles);
-        }
-
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-        });
-
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            initParticles();
-        });
-
-        // 3D Book Tilt Effect
-        const book3d = document.getElementById('book3d');
-        
-        document.addEventListener('mousemove', (e) => {
-            if (window.innerWidth > 1024) {
-                const x = (window.innerWidth / 2 - e.pageX) / 50;
-                const y = (window.innerHeight / 2 - e.pageY) / 50;
-                book3d.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
-            }
-        });
-
-        // Navigation scroll effect
-        const nav = document.querySelector('.nav');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 100) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
-        // Fade in animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.fade-in').forEach(el => {
-            observer.observe(el);
-        });
-
-        // Smooth scroll for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Initialize
-        resizeCanvas();
-        initParticles();
-        animateParticles();
-    </script>
+<section class="section" id="faq" aria-labelledby="h-faq">
+  <div class="wrap">
+    <span class="label">Questions</span>
+    <h2 id="h-faq">Frequently asked questions</h2>
+    <div class="faq">
+      <details>
+        <summary>What is Synergy about?</summary>
+        <p>Synergy is a science fiction novel by Víctor Maicán. An artificial intelligence awakens and learns to feel; Aiden Voss, the man who created it, protects it like a son while ZERON, an algorithmic surveillance entity, tries to eliminate it.</p>
+      </details>
+      <details>
+        <summary>Where can I buy Synergy?</summary>
+        <p>On Amazon, as a Kindle ebook and as a paperback. The Spanish edition, SINERGIA, is also on Google Play Books.</p>
+      </details>
+      <details>
+        <summary>How much does Synergy cost?</summary>
+        <p>The ebook costs $5.99 and the paperback $16.00 on Amazon, as of October 1, 2026.</p>
+      </details>
+      <details>
+        <summary>How many pages does it have?</summary>
+        <p>The English edition has 167 pages. The Spanish edition, SINERGIA, has 154.</p>
+      </details>
+      <details>
+        <summary>Can I read part of it for free?</summary>
+        <p>Yes. The first two chapters are complete and free on this site.</p>
+      </details>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="site-footer">
+  <div class="wrap">
+    <ul>
+      <li><a href="mailto:sinergialibro@gmail.com">sinergialibro@gmail.com</a></li>
+      <li><a href="https://www.instagram.com/sinergialibro/" rel="noopener">Instagram</a></li>
+      <li><a href="https://www.tiktok.com/@sinergialibro" rel="noopener">TikTok</a></li>
+      <li><a href="./" hreflang="es" lang="es">Versión en español</a></li>
+    </ul>
+    <p>&copy; 2025 Víctor Maicán</p>
+  </div>
+</footer>
+<script src="assets/site.js" defer></script>
 </body>
 </html>
