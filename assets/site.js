@@ -52,6 +52,31 @@
     }
   }
 
+  // The book follows the pointer (mouse and pen only; touch screens and reduced motion keep it still).
+  var book = document.querySelector(".book3d");
+  var hero = document.querySelector(".hero");
+  if (book && hero && !reduce && window.matchMedia("(hover: hover) and (pointer: fine)").matches) {
+    var pending = null;
+    var clamp = function (v, lo, hi) { return Math.max(lo, Math.min(hi, v)); };
+    hero.addEventListener("pointermove", function (e) {
+      var r = book.getBoundingClientRect();
+      var dx = (e.clientX - (r.left + r.width / 2)) / window.innerWidth;
+      var dy = (e.clientY - (r.top + r.height / 2)) / window.innerHeight;
+      if (pending) { return; }
+      pending = window.requestAnimationFrame(function () {
+        pending = null;
+        book.classList.add("tracking");
+        book.style.setProperty("--ry", clamp(-16 + dx * 70, -40, 4).toFixed(1) + "deg");
+        book.style.setProperty("--rx", clamp(4 - dy * 24, -12, 14).toFixed(1) + "deg");
+      });
+    });
+    hero.addEventListener("pointerleave", function () {
+      book.classList.remove("tracking");
+      book.style.removeProperty("--ry");
+      book.style.removeProperty("--rx");
+    });
+  }
+
   // Reading progress on the chapter pages.
   var bar = document.querySelector(".progress");
   if (bar && !reduce) {

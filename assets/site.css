@@ -69,7 +69,18 @@ p { margin: 0 0 1.1em; }
 .text-link { font-family: var(--mono); font-size: var(--t-xs); min-height: 44px; display: inline-flex; align-items: center; }
 
 /* ---------- hero ---------- */
-.hero { padding: 64px 0 96px; overflow: hidden; }
+.hero { padding: 64px 0 96px; overflow: hidden; position: relative; isolation: isolate; }
+/* Chapter 1, 2:47 a.m.: neon signs blinking through metal blinds ("Azul. Rojo. Azul otra vez.").
+   Two slatted lights take turns: cyan (the machine) and amber (the human). Low alpha so the text always wins. */
+.hero::before, .hero::after { content: ""; position: absolute; inset: -10% -5% -10% 30%; z-index: -1; pointer-events: none;
+  background: repeating-linear-gradient(to bottom, var(--slat) 0 7px, transparent 7px 24px);
+  transform: skewY(-7deg);
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 70% 45%, #000 0%, transparent 75%);
+          mask-image: radial-gradient(ellipse 70% 60% at 70% 45%, #000 0%, transparent 75%); }
+.hero::before { --slat: rgba(69, 227, 220, 0.22); animation: neon-a 9s steps(1, end) infinite; }
+.hero::after  { --slat: rgba(232, 160, 74, 0.20); animation: neon-b 9s steps(1, end) infinite; }
+@keyframes neon-a { 0% { opacity: 1; } 40% { opacity: 0.25; } 42% { opacity: 1; } 45% { opacity: 0; } 92% { opacity: 1; } }
+@keyframes neon-b { 0% { opacity: 0; } 45% { opacity: 1; } 84% { opacity: 0.3; } 86% { opacity: 1; } 90% { opacity: 0; } }
 .hero .wrap { display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 48px; align-items: center; }
 .hero h1 { font-size: var(--t-display); font-weight: 600; line-height: 0.92; letter-spacing: -0.03em; margin: 0 0 36px; }
 .voice-line { font-size: var(--t-md); line-height: 1.5; margin: 0 0 28px; min-height: 3.2em; }
@@ -82,8 +93,10 @@ p { margin: 0 0 1.1em; }
 .book3d { --w: 340px; --depth: 26px; display: block; width: var(--w); justify-self: center; perspective: 1800px; text-decoration: none; }
 /* The pieces are <span>s inside a link; inline boxes ignore 3D transforms, so they must be blocks. */
 .book3d .obj, .book3d .front, .book3d .pages, .book3d picture { display: block; }
-.book3d .obj { position: relative; transform-style: preserve-3d; transform: rotateY(-30deg) rotateX(6deg); transition: transform .6s var(--ease); }
-.book3d:hover .obj, .book3d:focus-visible .obj { transform: rotateY(-14deg) rotateX(3deg); }
+/* At rest almost facing the reader; with a mouse it follows the pointer (site.js sets --ry/--rx). */
+.book3d .obj { position: relative; transform-style: preserve-3d; transform: rotateY(var(--ry, -16deg)) rotateX(var(--rx, 4deg)); transition: transform .5s var(--ease); }
+.book3d.tracking .obj { transition: transform .12s linear; }
+.book3d:focus-visible .obj { transform: rotateY(-6deg) rotateX(2deg); }
 .book3d .front { position: relative; z-index: 2; border-radius: 2px 4px 4px 2px; overflow: hidden; transform: translateZ(calc(var(--depth) / 2)); box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55); }
 .book3d .front img { width: 100%; }
 /* Only the faces turned to the reader are painted (a back-facing face showed mirrored). */
@@ -219,5 +232,6 @@ p { margin: 0 0 1.1em; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
   .js .reveal { opacity: 1; transform: none; }
+  .hero::after { opacity: 0; }
   .progress { display: none; }
 }
